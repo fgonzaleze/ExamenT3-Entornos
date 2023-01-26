@@ -1,4 +1,4 @@
-package fraccion;
+package examen;
 /**
  * Programa que realiza fracciones
  * @author jgonzalez
@@ -7,12 +7,15 @@ package fraccion;
  */
 // Clase que define una fracción
 
+
 public class Fraccion {
 	// Numerador
 	private int num;
 
 	// Denominador
 	private int den;
+
+	private String mensaje = num + "/" + den;
 
 	// Constructor por defecto
 
@@ -30,10 +33,13 @@ public class Fraccion {
 	public Fraccion(int num, int den) {
 		// debo evitar crear fracciones con 0 en el divisor
 		this.num = num;
-		if (den == 0)
+		if (den == 0) {
 			this.den = 1;
-		else
+		}
+			
+		else {
 			this.den = den;
+		}
 		// devuelvo la fracci�n simplificada
 		simplificar();
 	}
@@ -83,9 +89,9 @@ public class Fraccion {
  * @return u Devuelve el valor absoluto del numerador
  */
 	// Cálculo del máximo común divisor por el algoritmo de Euclides
-	private int mcd() {
-		int u = (Math.abs(num)); // valor absoluto del numerador
-		int v = (Math.abs(den)); // valor absoluto del denominador
+	private int maximoComunDivisor() {
+		int u = Math.abs(num); // valor absoluto del numerador
+		int v = Math.abs(den); // valor absoluto del denominador
 		if (v == 0) {
 			return u;
 		}
@@ -95,13 +101,13 @@ public class Fraccion {
 			u = v;
 			v = r;
 		}
-		return u;
+		return v;
 	}
 
 	// método para simplificar fracciones
 	
 	public void simplificar() {
-		int n = mcd();
+		int n = maximoComunDivisor();
 		num = num / n;
 		den = den / n;
 	}
@@ -109,7 +115,6 @@ public class Fraccion {
 	// Método toString
 
 	public String toString() {
-		String mensaje = num + "/" + den;
 		return mensaje;
 
 	}
@@ -121,7 +126,9 @@ public class Fraccion {
 	// suma de fracciones
 	public Fraccion sumar(Fraccion f) {
 		Fraccion aux = new Fraccion();
-		aux.num = num * f.den + den * f.num;
+		int cruce1 = num * f.den;
+		int cruce2 = den * f.num;
+		aux.num = cruce1 + cruce2;
 		aux.den = den * f.den;
 		aux.simplificar();
 		return aux;
@@ -146,13 +153,13 @@ public class Fraccion {
 //Multiplicar fracciones
 /**
  * Funcion para multiplicar fracciones
- * @param f Determina la fraccion
+ * @param fraccion Determina la fraccion
  * @return aux Numero auxiliar que simplifica
  */
-	public Fraccion multiplicar(Fraccion f) {
+	public Fraccion multiplicar(Fraccion fraccion) {
 		Fraccion aux = new Fraccion();
-		aux.num = num * f.num;
-		aux.den = den * f.den;
+		aux.num = num * fraccion.num;
+		aux.den = den * fraccion.den;
 		aux.simplificar();
 		return aux;
 
